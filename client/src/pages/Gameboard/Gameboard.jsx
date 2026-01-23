@@ -17,17 +17,16 @@ function Gameboard() {
           console.log(rect);
           let x = event.clientX - rect.left;
           let y = event.clientY - rect.top;
-          const xs = x / rect.width;
-          const ys = y / rect.height;
+          const xPosRelativeToWidth = x / rect.width;
+          const yPosRelativeToHeight = y / rect.height;
 
           if (!pos) {
-            setPos({ x: x, y: y });
+            setPos({ x: xPosRelativeToWidth, y: yPosRelativeToHeight });
           } else {
-            console.log(pos);
             setPos(null);
           }
           console.log('Coordinate x: ' + x, 'Coordinate y: ' + y);
-          console.log(xs, ys);
+          console.log(xPosRelativeToWidth, yPosRelativeToHeight);
         }}
         className={style.photo}
         src={robotCity}
