@@ -8,7 +8,7 @@ function Gameboard() {
   const [pos, setPos] = useState(null);
   const elementRef = useRef(null);
   return (
-    <div>
+    <div className={style.container}>
       {pos && <Dropdown posX={pos.x} posY={pos.y}></Dropdown>}
       <img
         ref={elementRef}

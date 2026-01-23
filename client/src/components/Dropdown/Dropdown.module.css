@@ -2,3 +2,7 @@
   position: absolute;
   background-color: aqua;
 }
+.dropdown > div {
+  display: flex;
+  gap: 1rem;
+}

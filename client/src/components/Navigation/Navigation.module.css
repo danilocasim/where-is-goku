@@ -1,6 +1,12 @@
 .nav {
-  position: fixed;
+  position: absolute;
   display: flex;
   justify-content: space-between;
-  width: 100vw;
+  height: 65px;
+  width: 100%;
+  padding: 1rem;
+}
+
+.nav > div {
+  background-color: aquamarine;
 }
