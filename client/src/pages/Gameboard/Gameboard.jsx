@@ -7,9 +7,18 @@ import style from './Gameboard.module.css';
 function Gameboard() {
   const [pos, setPos] = useState(null);
   const elementRef = useRef(null);
+
   return (
     <div className={style.container}>
-      {pos && <Dropdown posX={pos.x} posY={pos.y}></Dropdown>}
+      {pos && (
+        <Dropdown
+          posX={pos.x}
+          posY={pos.y}
+          xStyle={pos.xStyle}
+          yStyle={pos.yStyle}
+          setPos={setPos}
+        ></Dropdown>
+      )}
       <img
         ref={elementRef}
         onClick={(event) => {
@@ -21,7 +30,12 @@ function Gameboard() {
           const yPosRelativeToHeight = y / rect.height;
 
           if (!pos) {
-            setPos({ x: xPosRelativeToWidth, y: yPosRelativeToHeight });
+            setPos({
+              x: xPosRelativeToWidth,
+              y: yPosRelativeToHeight,
+              xStyle: x,
+              yStyle: y,
+            });
           } else {
             setPos(null);
           }

@@ -1,6 +1,7 @@
 .dropdown {
   position: absolute;
   background-color: aqua;
+  width: 100px;
 }
 .dropdown > div {
   display: flex;

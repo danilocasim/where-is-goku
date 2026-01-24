@@ -4,7 +4,7 @@ function Navigation() {
   return (
     <nav className={style.nav}>
       <div>Robot City</div>
-      <div>Characters</div>
+      <div>Char</div>
       <div>Timer</div>
     </nav>
   );
