@@ -13,18 +13,25 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+model Character {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  coordinates Coordinates?
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+model Coordinates {
+  id           Int       @id @default(autoincrement())
+  character    Character @relation(fields: [characterId], references: [id])
+  characterId  Int       @unique
+  top_axis_y   Float
+  bot_axis_y   Float
+  left_axis_x  Float
+  right_axis_x Float
+}
+
+model Leaderboard {
+  id   Int    @id @default(autoincrement())
+  name String
+  time String
 }
