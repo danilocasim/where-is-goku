@@ -5,7 +5,12 @@ import { Router } from 'express';
 const indexRouter = Router();
 
 indexRouter.get('/sessions', (req, res) => {
-  res.json({ message: 'Lol' });
+  req.session.user = {
+    name: 'Anonymous',
+    chars: ['Goku', 'Leonardo', 'Mojo Jojo'],
+    start: new Date(),
+  };
+  res.json({ message: req.session });
 });
 
 indexRouter.post('/checkCoordinates', indexController.checkCoordinates);
