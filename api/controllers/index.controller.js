@@ -3,7 +3,7 @@ import db from '../queries/index.queries.js';
 class Index {
   async checkCoordinates(req, res) {
     const { name, coordinateX, coordinateY } = req.body;
-
+    console.log(req.session);
     if (await db.checkCoordinates(name, coordinateX, coordinateY)) {
       res.json({ message: 'Correct', session: req.session });
     } else {

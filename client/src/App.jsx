@@ -10,7 +10,7 @@ function App() {
   const API_URL = 'http://localhost:8000/api/v1';
 
   useEffect(() => {
-    fetch(`${API_URL}/sessions`, {
+    fetch(`${API_URL}/set-session`, {
       headers: {
         'Content-Type': 'application/json',
       },

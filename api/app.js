@@ -16,12 +16,9 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(
   session({
-    cookie: {
-      maxAge: 3600, // ms
-    },
     secret: 'a santa at nasa',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: new PrismaSessionStore(new PrismaClient({ adapter }), {
       checkPeriod: 2 * 60 * 1000, //ms
       dbRecordIdIsSessionId: true,
@@ -32,6 +29,16 @@ app.use(
 
 app.use('/api/v1', indexRouter);
 
+app.get('/destroy-session', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session:', err);
+      res.send('Error destroying session');
+    } else {
+      res.send('Session destroyed');
+    }
+  });
+});
 const PORT = 8000;
 app.listen(PORT, (err) => {
   if (err) throw err;
