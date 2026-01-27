@@ -15,6 +15,7 @@ function App() {
         'Content-Type': 'application/json',
       },
       mode: 'cors',
+      credentials: 'include',
     })
       .then((response) => response.json())
       .then((data) => {

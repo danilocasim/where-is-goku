@@ -15,6 +15,7 @@ function Dropdown({ posX, posY, xStyle, yStyle, setPos }) {
         coordinateY: posY,
       }),
       method: 'POST',
+      credentials: 'include',
     })
       .then((response) => response.json())
       .then((data) => {
