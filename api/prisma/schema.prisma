@@ -38,7 +38,8 @@ model Coordinates {
 }
 
 model Leaderboard {
-  id   Int    @id @default(autoincrement())
-  name String
-  time String
+  id            Int    @id @default(autoincrement())
+  name          String
+  timeDisplay   String
+  finishedBySec Int
 }

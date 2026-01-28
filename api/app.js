@@ -7,6 +7,7 @@ import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import { PrismaClient } from './generated/prisma/client.js';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { randomUUID } from 'crypto';
+import leaderboardRouter from './routes/leaderboard.routes.js';
 const connectionString = `${process.env.DATABASE_URL}`;
 const adapter = new PrismaPg({ connectionString });
 const app = express();
@@ -44,6 +45,7 @@ app.use(
 );
 
 app.use('/api/v1', indexRouter);
+app.use('/api/v1/leaderboard', leaderboardRouter);
 
 app.get('/destroy-session', (req, res) => {
   req.session.destroy((err) => {
