@@ -9,10 +9,9 @@ function App() {
   const [characters, setCharacters] = useState([]);
   const API_URL = 'http://localhost:8000/api/v1';
   const [secondsPassed, setSecondsPassed] = useState(0);
-  const [stopInterval, setStopInterval] = useState(false);
+  const [stopInterval, setStopInterval] = useState(true);
 
   function setSession() {
-    setStopInterval(true);
     fetch(`${API_URL}/set-session`, {
       headers: {
         'Content-Type': 'application/json',
@@ -27,7 +26,9 @@ function App() {
       });
   }
 
-  useEffect(() => setSession, []);
+  useEffect(() => {
+    setSession();
+  }, []);
 
   useEffect(() => {
     let timer = () => {
