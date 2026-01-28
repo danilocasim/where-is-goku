@@ -1,15 +1,30 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import robotCity from '../../assets/robot-city.webp';
 import Dropdown from '../../components/Dropdown/Dropdown';
 
 import style from './Gameboard.module.css';
+import AddPlayerToLeaderboard from '../../components/AddPlayerToLeaderboard/AddPlayerToLeaderboard';
+import { CharacterContext } from '../../contexts/CharacterContext';
 
 function Gameboard() {
   const [pos, setPos] = useState(null);
   const elementRef = useRef(null);
+  const [finishedPlayer, setFinishedPlayer] = useState(null);
+  const { showAddPlayer, setShowAddPlayer } = useContext(CharacterContext);
 
   return (
     <div className={style.container}>
+      {showAddPlayer && (
+        <AddPlayerToLeaderboard
+          setShowAddPlayer={setShowAddPlayer}
+          finishedPlayer={finishedPlayer}
+          finishedSec={
+            (new Date().getTime() -
+              new Date(`${finishedPlayer.start}`).getTime()) /
+            1000
+          }
+        ></AddPlayerToLeaderboard>
+      )}
       {pos && (
         <Dropdown
           posX={pos.x}
@@ -17,6 +32,8 @@ function Gameboard() {
           xStyle={pos.xStyle}
           yStyle={pos.yStyle}
           setPos={setPos}
+          setShowAddPlayer={setShowAddPlayer}
+          setFinishedPlayer={setFinishedPlayer}
         ></Dropdown>
       )}
       <img
