@@ -8,9 +8,9 @@ class Index {
         const index = req.session.user.chars.indexOf(name);
         req.session.user.chars.splice(index, 1);
       }
-      res.json({ message: 'Correct', session: req.session });
+      res.json({ success: true, session: req.session });
     } else {
-      res.json({ message: 'Wrong', session: req.session });
+      res.json({ success: false, session: req.session });
     }
   }
 }
