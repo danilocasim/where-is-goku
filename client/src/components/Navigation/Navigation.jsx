@@ -36,7 +36,7 @@ function Navigation() {
       <button
         onClick={() => {
           setSession();
-          setSecondsPassed(1);
+          setSecondsPassed(0);
           setShowAddPlayer(false);
           setStopInterval(false);
         }}

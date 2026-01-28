@@ -8,10 +8,11 @@ function App() {
   const [showAddPlayer, setShowAddPlayer] = useState(false);
   const [characters, setCharacters] = useState([]);
   const API_URL = 'http://localhost:8000/api/v1';
-  const [secondsPassed, setSecondsPassed] = useState(1);
+  const [secondsPassed, setSecondsPassed] = useState(0);
   const [stopInterval, setStopInterval] = useState(false);
 
   function setSession() {
+    setStopInterval(true);
     fetch(`${API_URL}/set-session`, {
       headers: {
         'Content-Type': 'application/json',
@@ -21,13 +22,12 @@ function App() {
     })
       .then((response) => response.json())
       .then((data) => {
+        setStopInterval(false);
         setCharacters(data.message.user.chars);
       });
   }
 
-  useEffect(() => {
-    setSession();
-  }, []);
+  useEffect(() => setSession, []);
 
   useEffect(() => {
     let timer = () => {
