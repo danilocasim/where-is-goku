@@ -9,7 +9,6 @@ import { CharacterContext } from '../../contexts/CharacterContext';
 function Gameboard() {
   const [pos, setPos] = useState(null);
   const elementRef = useRef(null);
-  const [finishedPlayer, setFinishedPlayer] = useState(null);
   const { showAddPlayer, setShowAddPlayer } = useContext(CharacterContext);
 
   return (
@@ -17,12 +16,6 @@ function Gameboard() {
       {showAddPlayer && (
         <AddPlayerToLeaderboard
           setShowAddPlayer={setShowAddPlayer}
-          finishedPlayer={finishedPlayer}
-          finishedSec={
-            (new Date().getTime() -
-              new Date(`${finishedPlayer.start}`).getTime()) /
-            1000
-          }
         ></AddPlayerToLeaderboard>
       )}
       {pos && (
@@ -33,7 +26,6 @@ function Gameboard() {
           yStyle={pos.yStyle}
           setPos={setPos}
           setShowAddPlayer={setShowAddPlayer}
-          setFinishedPlayer={setFinishedPlayer}
         ></Dropdown>
       )}
       <img

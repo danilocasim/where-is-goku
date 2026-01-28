@@ -8,6 +8,10 @@ class Index {
         const index = req.session.user.chars.indexOf(name);
         req.session.user.chars.splice(index, 1);
       }
+      if (req.session.user.chars.length === 0) {
+        req.session.user.end = new Date();
+      }
+
       res.json({ success: true, session: req.session });
     } else {
       res.json({ success: false, session: req.session });
