@@ -1,8 +1,11 @@
+import { useContext } from 'react';
 import style from './Dropdown.module.css';
+import { CharacterContext } from '../../contexts/CharacterContext';
 
 function Dropdown({ posX, posY, xStyle, yStyle, setPos }) {
   const API_URL = 'http://localhost:8000/api/v1';
 
+  const { characters, setCharacters } = useContext(CharacterContext);
   function checkCoordinates(name) {
     fetch(`${API_URL}/checkCoordinates`, {
       headers: {
@@ -20,6 +23,7 @@ function Dropdown({ posX, posY, xStyle, yStyle, setPos }) {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        setCharacters(data.session.user.chars);
         setPos(null);
       });
   }
@@ -29,9 +33,10 @@ function Dropdown({ posX, posY, xStyle, yStyle, setPos }) {
       className={style.dropdown}
       style={{ top: yStyle + 'px', left: xStyle + 'px' }}
     >
-      <button onClick={() => checkCoordinates('Goku')}>Goku</button>
-      <button onClick={() => checkCoordinates('Mojo Jojo')}>Mojo Jojo</button>
-      <button onClick={() => checkCoordinates('Leonardo')}>Leonardo</button>
+      {characters &&
+        characters.map((char) => {
+          return <button onClick={() => checkCoordinates(char)}>{char}</button>;
+        })}
     </nav>
   );
 }
