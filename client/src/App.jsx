@@ -2,11 +2,10 @@ import { Outlet } from 'react-router';
 import Navigation from './components/Navigation/Navigation';
 import style from './App.module.css';
 import { useEffect, useState } from 'react';
+import { CharacterContext } from './contexts/CharacterContext';
 
 function App() {
   const [characters, setCharacters] = useState([]);
-  console.log(characters);
-
   const API_URL = 'http://localhost:8000/api/v1';
 
   useEffect(() => {
@@ -19,16 +18,17 @@ function App() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data, '2');
         setCharacters(data.message.user.chars);
       });
   }, []);
 
   return (
-    <div className={style.container}>
-      <Navigation></Navigation>
-      <Outlet />
-    </div>
+    <CharacterContext value={{ characters, setCharacters }}>
+      <div className={style.container}>
+        <Navigation></Navigation>
+        <Outlet />
+      </div>
+    </CharacterContext>
   );
 }
 
