@@ -2,10 +2,20 @@ import { useContext } from 'react';
 import style from './Dropdown.module.css';
 import { CharacterContext } from '../../contexts/CharacterContext';
 
-function Dropdown({ posX, posY, xStyle, yStyle, setPos }) {
+function Dropdown({
+  posX,
+  posY,
+  xStyle,
+  yStyle,
+  setPos,
+  setShowAddPlayer,
+  setFinishedPlayer,
+}) {
   const API_URL = 'http://localhost:8000/api/v1';
 
-  const { characters, setCharacters } = useContext(CharacterContext);
+  const { characters, setCharacters, setStopInterval } =
+    useContext(CharacterContext);
+
   function checkCoordinates(name) {
     fetch(`${API_URL}/checkCoordinates`, {
       headers: {
@@ -22,9 +32,16 @@ function Dropdown({ posX, posY, xStyle, yStyle, setPos }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        if (data.session.user.chars.length === 0) {
+          setStopInterval(true);
+          setShowAddPlayer(true);
+          setFinishedPlayer(data.session.user);
+          alert('Congrats!');
+        }
+        alert(data.success ? 'Correct' : 'Wrong');
         setCharacters(data.session.user.chars);
         setPos(null);
+        setFinishedPlayer(data.session.user);
       });
   }
 
