@@ -13,6 +13,9 @@ const app = express();
 
 const whitelist = ['http://localhost:5173' /** other domains if any */];
 const corsOptions = {
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none',
   credentials: true,
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
