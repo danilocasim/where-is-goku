@@ -13,9 +13,6 @@ const app = express();
 
 const whitelist = ['http://localhost:5173' /** other domains if any */];
 const corsOptions = {
-  httpOnly: true,
-  secure: true,
-  sameSite: 'none',
   credentials: true,
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
@@ -36,6 +33,9 @@ app.use(
   session({
     cookie: {
       maxAge: 24 * 60 * 60 * 1000, // Cookie expiration: 1 day
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
     },
     secret: 'a santa at nasa',
     resave: false,

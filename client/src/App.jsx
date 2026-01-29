@@ -1,17 +1,17 @@
 import { Outlet } from 'react-router';
 import Navigation from './components/Navigation/Navigation';
 import style from './App.module.css';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { CharacterContext } from './contexts/CharacterContext';
 
 function App() {
   const [showAddPlayer, setShowAddPlayer] = useState(false);
   const [characters, setCharacters] = useState([]);
-  const API_URL = 'http://localhost:8000/api/v1';
+  const API_URL = import.meta.env.VITE_API_KEY;
   const [secondsPassed, setSecondsPassed] = useState(0);
   const [stopInterval, setStopInterval] = useState(true);
 
-  function setSession() {
+  const setSession = useCallback(() => {
     fetch(`${API_URL}/set-session`, {
       headers: {
         'Content-Type': 'application/json',
@@ -23,12 +23,13 @@ function App() {
       .then((data) => {
         setStopInterval(false);
         setCharacters(data.message.user.chars);
+        console.log(data);
       });
-  }
+  }, [API_URL]);
 
   useEffect(() => {
     setSession();
-  }, []);
+  }, [setSession]);
 
   useEffect(() => {
     let timer = () => {

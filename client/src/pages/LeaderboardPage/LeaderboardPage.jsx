@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 function LeaderboardPage() {
   const [leaderboard, setLeaderboard] = useState([]);
-  const API_URL = 'http://localhost:8000/api/v1';
+  const API_URL = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     fetch(`${API_URL}/leaderboard`, {
@@ -12,10 +12,14 @@ function LeaderboardPage() {
         'Content-Type': 'application/json',
       },
       mode: 'cors',
+      credentials: 'include',
     })
       .then((response) => response.json())
-      .then((data) => setLeaderboard(data));
-  }, []);
+      .then((data) => {
+        console.log(data);
+        setLeaderboard(data);
+      });
+  }, [API_URL]);
 
   return (
     <div className={style.leaderboards}>

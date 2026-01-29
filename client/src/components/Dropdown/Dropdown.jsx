@@ -3,8 +3,7 @@ import style from './Dropdown.module.css';
 import { CharacterContext } from '../../contexts/CharacterContext';
 
 function Dropdown({ posX, posY, xStyle, yStyle, setPos, setShowAddPlayer }) {
-  const API_URL = 'http://localhost:8000/api/v1';
-
+  const API_URL = import.meta.env.VITE_API_KEY;
   const { characters, setCharacters, setStopInterval } =
     useContext(CharacterContext);
 
@@ -24,6 +23,8 @@ function Dropdown({ posX, posY, xStyle, yStyle, setPos, setShowAddPlayer }) {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data.session);
+        console.log('s');
         if (data.session.user.chars.length === 0) {
           setStopInterval(true);
           setShowAddPlayer(true);

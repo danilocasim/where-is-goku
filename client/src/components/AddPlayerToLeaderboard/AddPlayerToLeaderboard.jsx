@@ -2,7 +2,7 @@ import { useState } from 'react';
 import style from './AddPlayerToLeaderboard.module.css';
 
 function AddPlayerToLeaderboard({ setShowAddPlayer }) {
-  const API_URL = 'http://localhost:8000/api/v1';
+  const API_URL = import.meta.env.VITE_API_KEY;
   const [name, setName] = useState('');
 
   function addPlayer(e) {
