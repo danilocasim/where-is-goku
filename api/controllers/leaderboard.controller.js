@@ -36,7 +36,7 @@ class Leaderboard {
   async getLeaderboard(req, res) {
     const leaderboard = await db.getLeaderboard();
 
-    res.json({ leaderboard });
+    res.json({ leaderboard, session: req.session });
   }
 }
 
