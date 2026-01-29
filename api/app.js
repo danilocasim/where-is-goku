@@ -11,7 +11,10 @@ const connectionString = `${process.env.DATABASE_URL}`;
 const adapter = new PrismaPg({ connectionString });
 const app = express();
 
-const whitelist = ['http://localhost:5173' /** other domains if any */];
+const whitelist = [
+  'http://localhost:5173',
+  'https://where-is-goku.vercel.app' /** other domains if any */,
+];
 const corsOptions = {
   credentials: true,
   origin: function (origin, callback) {
