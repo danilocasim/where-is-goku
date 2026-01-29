@@ -6,7 +6,6 @@ import session from 'express-session';
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import { PrismaClient } from './generated/prisma/client.js';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { randomUUID } from 'crypto';
 import leaderboardRouter from './routes/leaderboard.routes.js';
 const connectionString = `${process.env.DATABASE_URL}`;
 const adapter = new PrismaPg({ connectionString });
@@ -23,6 +22,8 @@ const corsOptions = {
     }
   },
 };
+
+app.set('trust proxy', 1);
 
 app.use(cors(corsOptions));
 app.use(express.json());
