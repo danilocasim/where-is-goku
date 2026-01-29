@@ -26,7 +26,7 @@ const corsOptions = {
   },
 };
 
-app.set('trust proxy', 1);
+app.set('trust proxy', true);
 
 app.use(cors(corsOptions));
 app.use(express.json());
